@@ -25,11 +25,13 @@ Subclass it -> then specify loginSegueID and loadingSegueID if you want. Impleme
 
 #### Integrating `AULoginViewController`:
 
-#### Integrating `AULoadingViewController:
+#### Integrating `AULoadingViewController`:
 
 
 
-This is the login flow shown in a simple diagram:
+
+## Flow
+This is a summary of the login flow in a simple diagram:
 
 <p align="center">
   <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/Flow-detailed.png?raw=true" alt="Login Flow"/>
