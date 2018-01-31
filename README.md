@@ -18,6 +18,9 @@ Another feature of AuthNavigation is that you can integrate a loading screen ver
 ## Usage
 In order to you AuthNavigation on one of your VC's, follow these steps:
 
+Basic: Only AuthVC and LoginVC
+Advanced: Plus LoadingVC in order to have time for server request to check if login is needed or not
+
 Let's say you have a VC called `SecretVC`. In order to use login you will also need a specified VC for this, we call it `SecretLoginVC`.
 
 #### Integrating `AUAuthenticatableViewController`:
