@@ -10,35 +10,47 @@ import UIKit
 
 class AUAuthenticatableViewController: AUBaseViewController {
     
-    
+    var viewWillAppearCalled = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.presentOverlay()
         
-        // Present login if needed
-        if shouldLogin() {
+        // Only call once (becuase viewWillAppear may get called more than once)
+        if viewWillAppearCalled == false {
             
-            // Check if should present loadingVC
-            if loadingSegueID != nil || loadingSegueID != "" {
+            // Present login if needed
+            if shouldLogin() {
                 
-                // Check if loading screen has already been presented
-                if didLoad == false {
-                    presentLoadingVC()
-                } else {
+                // Check if should present loadingVC
+                if loadingSegueID != nil || loadingSegueID != "" {
+                    
+                    // Check if loading screen has already been presented
+                    if didLoad == false {
+                        presentLoadingVC()
+                    } else {
+                        presentLoginVC()
+                    }
+                }
+                    
+                else {
                     presentLoginVC()
                 }
             }
             
             else {
-                presentLoginVC()
+                self.dismissOverlay()
             }
         }
+        
+        viewWillAppearCalled = true
     }
     
     
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        viewWillAppearCalled = false
         
         self.dismissOverlay()
     }
