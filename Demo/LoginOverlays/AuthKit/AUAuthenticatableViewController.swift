@@ -14,33 +14,50 @@ class AUAuthenticatableViewController: AUBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.presentOverlay()
+        presentOverlay()
         
         // Only call once (becuase viewWillAppear may get called more than once)
         if viewWillAppearCalled == false {
             
-            // Present login if needed
-            if shouldLogin() {
+            // Check if should present loadingVC
+            if isLoggedIn == false {
                 
-                // Check if should present loadingVC
-                if loadingSegueID != nil || loadingSegueID != "" {
-                    
-                    // Check if loading screen has already been presented
+                if loadingSegueID != nil && loadingSegueID != "" {
                     if didLoad == false {
+                        // Calculate if user shouldLogin
+                        DispatchQueue.global().async {
+                            self.shouldLoginCalculationCache = self.shouldLogin()
+                        }
                         presentLoadingVC()
-                    } else {
+                    }
+                        
+                    // PresentLoginVC
+                    else if shouldLoginCalculationCache == true {
                         presentLoginVC()
                     }
+                        
+                    // Continue to normal view
+                    else {
+                        dismissOverlay(animated: true)
+                    }
                 }
-                    
+                
+                // No LoadingVC -> Check if should login
                 else {
-                    presentLoginVC()
+                    if shouldLogin() {
+                        presentLoginVC()
+                    }
+                        
+                    // Continue to normal view
+                    else {
+                        dismissOverlay(animated: true)
+                    }
                 }
+            } else {
+                dismissOverlay(animated: true)
             }
-            
-            else {
-                self.dismissOverlay()
-            }
+        } else {
+            dismissOverlay(animated: true)
         }
         
         viewWillAppearCalled = true
@@ -52,7 +69,7 @@ class AUAuthenticatableViewController: AUBaseViewController {
         super.viewDidDisappear(animated)
         viewWillAppearCalled = false
         
-        self.dismissOverlay()
+        self.dismissOverlay(animated: false)
     }
     
     
@@ -62,6 +79,11 @@ class AUAuthenticatableViewController: AUBaseViewController {
     
     // MARK: - Login method
     
+    
+    
+    private var shouldLoginCalculationCache: Bool = true
+    
+    private var isLoggedIn: Bool = false
     
     
     /**
@@ -86,32 +108,11 @@ class AUAuthenticatableViewController: AUBaseViewController {
     
     
     
-    private var overlayView: UIView!
-    
-    /**
-     Create a customized overlay view which is used to hide the content area before login screen can be presented.
-     
-     - Important:
-     Override this function if you want to customize the overlay view
-     
-     Remember to set the correct size for the view if you override this method
-     
-     - returns:
-     A UIView object which is used as the overlay
-     */
-    func getOverlayView() -> UIView {
-        let overlay = UIView(frame: self.view.bounds)
-        overlay.backgroundColor = .white
-        return overlay
-    }
-    
-    
-    
     /**
      Set this to the StoryboardID of your login view controller.
      */
     var loginSegueID: String?
-
+    
  
     private func presentLoginVC() {
         
@@ -163,17 +164,59 @@ class AUAuthenticatableViewController: AUBaseViewController {
     
     
     
-    func presentOverlay() {
-        // Present overlayView to hide possible content that shouldn't be shown before login screen can popup
-        overlayView = getOverlayView()
-        self.view.addSubview(overlayView)
+    private var overlayView: UIView?
+    
+    
+    /**
+     Create a customized overlay view which is used to hide the content area before login screen can be presented.
+     
+     - Important:
+     Override this function if you want to customize the overlay view
+     
+     Remember to set the correct size for the view if you override this method
+     
+     - returns:
+     A UIView object which is used as the overlay
+     */
+    func getOverlayView() -> UIView {
+        let overlay = UIView(frame: self.view.bounds)
+        overlay.backgroundColor = .white
+        return overlay
     }
     
     
     
-    func dismissOverlay() {
-        if overlayView.superview != nil {
-            overlayView.removeFromSuperview()
+    /**
+     Present overlayView to hide possible content that shouldn't be shown before login screen can popup.
+    */
+    func presentOverlay() {
+        
+        // Add if not already in view
+        if overlayView == nil {
+            overlayView = getOverlayView()
+            
+            if overlayView!.superview == nil {
+                self.view.addSubview(overlayView!)
+            }
+        }
+        
+        // Present overlay
+        overlayView!.isHidden = false
+    }
+    
+    
+    
+    func dismissOverlay(animated: Bool) {
+        if overlayView != nil {
+            if animated {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.overlayView!.alpha = 0.0
+                }, completion: { (success) in
+                    self.overlayView!.isHidden = true
+                })
+            } else {
+                overlayView!.isHidden = true
+            }
         }
     }
     
@@ -214,23 +257,25 @@ class AUAuthenticatableViewController: AUBaseViewController {
     
     /**
      Override this function if you want to perform any actions after successfully loging in.
+     
+     - Important:
+     Don't override the function willReturnFromLogin(success:) if you need to perform additional actions
     */
-    func willReturnFromLogin() {
+    func willReturnFromLoginActions() {
         
     }
     
     
     
-    /**
-     - Important:
-     There should be NO need to override this method. If you still want to do so, then call with super.willReturnFromLoading()
-    */
-    func willReturnFromLoading() {
+    final func willReturnFromLogin(success: Bool) {
+        isLoggedIn = success
+        willReturnFromLoginActions()
+    }
+    
+    
+    
+    final func willReturnFromLoading() {
         didLoad = true
-        /*if shouldLogin() {
-            presentLoginVC()
-        }*/
-
     }
 
 }

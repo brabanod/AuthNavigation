@@ -11,7 +11,7 @@ import UIKit
 class LoginViewController: AULoginViewController {
 
     @IBAction func pressedLoginButton(_ sender: Any) {
-        finishLogin()
+        finishLogin(success: true)
     }
     
 }

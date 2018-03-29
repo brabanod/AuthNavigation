@@ -16,7 +16,7 @@ class AULoadingViewController: AUBaseViewController {
     
     
     
-    func finishLoading() {
+    final func finishLoading() {
         delegate?.willReturnFromLoading()
         self.performSegue(withIdentifier: "AULoadingUnwind", sender: self)
     }

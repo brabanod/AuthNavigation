@@ -16,8 +16,8 @@ class AULoginViewController: AUBaseViewController {
     
     
     
-    func finishLogin() {
-        delegate?.willReturnFromLogin()
+    final func finishLogin(success: Bool) {
+        delegate?.willReturnFromLogin(success: success)
         self.performSegue(withIdentifier: "AULoginUnwind", sender: self)
     }
 
