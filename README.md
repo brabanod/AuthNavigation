@@ -31,13 +31,36 @@ There are two ways to use AuthNavigation:
 
 Follow the below steps to use AuthNavigation:
 
+### Short Instructions
+
+1. *Projetc:* Create 2 VC's for *Basic* and 3 for *Advance*
+2. *Interface Builder:* Connect all VC's with segues and unwinding segues (Main <-> Login, Main <-> Loading)
+3. *MainVC:* Create a `AUAuthNavigator` instance
+4. *MainVC:* Make the class conform to `AUAuthenticatable` protocol and implement the two methods
+5. *MainVC:* Set the segue names to the corresponding properties of your `authNavigator`
+6. *MainVC:* Call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`
+7. *LoginVC:* Set `loginDelegate` to self and call `finishLogin(success: Bool)` when your login process is done
+8. *LoadingVC:* Set `loadingDelegate` to self and call `finishLoading` when your loading process is done
+
+
+### Complete Instrcutions
+
 1. **Setting up VC's:** You need to create 2 VC's in Interface Builder and their related controller classes, one is your `MainVC` and the other is your `LoginVC`. If you want a loading screen, you have to create a third VC, which we will name `LoadingVC`
 
 2. **Setting up segues:** For Basic, you need to create a segue from `MainVC` to `LoginVC`, set it's type to *custom* and the class to `AUSegueFade`. Also create an unwind segue for `LoginVC`, set the class to `AUSegueFadeUnwind`. If you want a loading screen, to the same from `MainVC` to `LoadingVC` and the unwind segue. Don't forget to give all segues identifiers.
 
 3. **Creating `AUAuthNavigatorInstance`:** In your `MainVC` you need an instance of `AUAuthNavigator`. If you only use AuthNavigation on one of your VC's in your app it's a good practice to use the `sharedInstance` from the class itself. If you use AuthNavigation multiple times in your app you should create your own instance. because your `LoginVC` and `LoadingVC` will need the same instance as `MainVC` it's a good idea, to declare the instance as a `static` variable in `MainVC` and use this in the other classes like `MainVC.authNavigator`.
 
-4. **Setting up `MainVC`:** 
+4. **Setting up `MainVC`:** Your `MainVC` class needs to conform to the `AUAuthenticatable` protocol. In `viewDidLoad` set the delegate of your `AUAuthNavigator` instance, let's call it `authNavigator`.  
+ Next set all the segue names (`loginSegueID`,  `loginUnwindSegueID` and if you want `loadingSegueID`, `loadingUnwindSegueID`).  
+ To actually use the authenticator, call `authNavigator.startAuthentication()` in `viewWillAppear` and `authNavigator.stopAuthentication()` in view.  
+ Now implement the 2 methods of the protocol:
+    * `shouldLogin`: Here you implement your authentication process. If your user needs to login, return true, if he is already logged in return false
+    * `willReturnFromLoginActions`: This method is called when returning from the `LoginVC`. You can run additional actions if you need to. If not leave the method body empty.
+
+5. **Setting up `LoginVC`:** Set the `authNavigator.loginDelegate` to `self`. If you've finished your login process call `authNavigator.finishLogin(success: Bool)`. A good practice is to handle wrong inputs on the login site itself rather than calling `...finishLogin(false)`, because AuthNavigator will then only show the login screen again.
+
+6. **Setting up `LoadingVC`:** Set the `authNavigator.loadingDelegate` to `self`. If you've finished your loading process call `authNavigator.finishLoading`.
 
 
 
