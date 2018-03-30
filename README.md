@@ -21,6 +21,27 @@ This is a summary of the login flow in a simple diagram:
 </p>
 
 
+## Installation
+
+### Manual
+
+You can simply drag the files from the `Source` folder into you project and use the classes.
+
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. To integrate AuthNavigation into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'AuthNavigation', '~> 1.1'
+end
+```
+
+
 ## Usage
 There are two ways to use AuthNavigation:
 
