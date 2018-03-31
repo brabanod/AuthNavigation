@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AuthNavigation'
-  s.version          = '1.1.0'
+  s.version          = '1.1.2'
   s.summary          = 'Delivers basic structure for login process'
 
   s.description      = <<-DESC
