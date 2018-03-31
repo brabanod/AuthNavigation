@@ -223,6 +223,9 @@ public class AUAuthNavigator: NSObject {
     
     
     
+    public var overlayColor: UIColor?
+    
+    
     private var overlayView: UIView?
     
     
@@ -239,7 +242,14 @@ public class AUAuthNavigator: NSObject {
      */
     private func getOverlayView() -> UIView {
         let overlay = UIView(frame: delegate?.view.bounds ?? CGRect.zero)
-        overlay.backgroundColor = .white
+        
+        if overlayColor != nil {
+            overlay.backgroundColor = overlayColor
+        } else {
+            // Default color is the host vc's background color, or white if not existent
+            overlay.backgroundColor = delegate?.view.backgroundColor ?? .white
+        }
+        
         return overlay
     }
     
