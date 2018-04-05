@@ -8,9 +8,9 @@
 
 import UIKit
 
-class AUSegueFade: UIStoryboardSegue {
+public class AUSegueFade: UIStoryboardSegue {
     
-    override func perform() {
+    public override func perform() {
         
         if !UIView.areAnimationsEnabled {
             print("ERROR: Enable animations for segue in Interface Builder. Check \"Animates\" in Attributes Inspector")

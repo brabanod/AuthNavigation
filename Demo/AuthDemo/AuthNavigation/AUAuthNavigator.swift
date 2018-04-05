@@ -8,31 +8,31 @@
 
 import UIKit
 
-protocol AUAuthenticatable where Self : UIViewController {
+public protocol AUAuthenticatable where Self : UIViewController {
     func shouldLogin() -> Bool
     func willReturnFromLoginActions(success: Bool)
 }
 
-class AUAuthNavigator: NSObject {
+public class AUAuthNavigator: NSObject {
     
-    static var sharedInstance = AUAuthNavigator()
+    public static var sharedInstance = AUAuthNavigator()
     
     
     
     // MARK: View Controllers
     
-    var delegate: (UIViewController & AUAuthenticatable)?
-    var loginDelegate: UIViewController?
-    var loadingDelegate: UIViewController?
+    public var delegate: (UIViewController & AUAuthenticatable)?
+    public var loginDelegate: UIViewController?
+    public var loadingDelegate: UIViewController?
     
     
     
     // MARK: Segues
     
-    var loginSegueID: String = ""
-    var loadingSegueID: String = ""
-    var loginUnwindSegueID: String = ""
-    var loadingUnwindSegueID: String = ""
+    public var loginSegueID: String = ""
+    public var loadingSegueID: String = ""
+    public var loginUnwindSegueID: String = ""
+    public var loadingUnwindSegueID: String = ""
     
     
     
@@ -43,11 +43,11 @@ class AUAuthNavigator: NSObject {
     
     
     
-    var didStartAuthentication: Bool = false
+    private var didStartAuthentication: Bool = false
     
     
     
-    func startAuthentication() {
+    public func startAuthentication() {
         if delegate == nil {
             print("ERROR: You've forgotten to set the delegate")
             return
@@ -105,7 +105,7 @@ class AUAuthNavigator: NSObject {
     
     
     
-    func stopAuthentication() {
+    public func stopAuthentication() {
         didStartAuthentication = false
         dismissOverlay(animated: false)
     }
@@ -148,14 +148,14 @@ class AUAuthNavigator: NSObject {
     
     
     
-    final func willReturnFromLogin(success: Bool) {
+    private func willReturnFromLogin(success: Bool) {
         didLoginSuccessfully = success
         delegate?.willReturnFromLoginActions(success: success)
     }
     
     
     
-    final func finishLogin(success: Bool) {
+    public func finishLogin(success: Bool) {
         if loginUnwindSegueID == "" {
             print("ERROR: Specify loginUnwindSegueID in order to perform unwind segue.")
         } else {
@@ -170,6 +170,13 @@ class AUAuthNavigator: NSObject {
     
     
     // MARK: - Loading
+    
+    
+    
+    /**
+     Indicates whether loading screen has already been presented
+     */
+    private var didLoad = false
     
     
     
@@ -192,20 +199,13 @@ class AUAuthNavigator: NSObject {
     
     
     
-    /**
-     Indicates whether loading screen has already been presented
-    */
-    var didLoad = false
-    
-    
-    
-    final func willReturnFromLoading() {
+    private func willReturnFromLoading() {
         didLoad = true
     }
     
     
     
-    final func finishLoading() {
+    public func finishLoading() {
         if loadingUnwindSegueID == "" {
             print("ERROR: Specify loadingUnwindSegueID in order to perform unwind segue.")
         } else {
@@ -223,6 +223,9 @@ class AUAuthNavigator: NSObject {
     
     
     
+    public var overlayColor: UIColor?
+    
+    
     private var overlayView: UIView?
     
     
@@ -237,9 +240,16 @@ class AUAuthNavigator: NSObject {
      - returns:
      A UIView object which is used as the overlay
      */
-    func getOverlayView() -> UIView {
+    private func getOverlayView() -> UIView {
         let overlay = UIView(frame: delegate?.view.bounds ?? CGRect.zero)
-        overlay.backgroundColor = .white
+        
+        if overlayColor != nil {
+            overlay.backgroundColor = overlayColor
+        } else {
+            // Default color is the host vc's background color, or white if not existent
+            overlay.backgroundColor = delegate?.view.backgroundColor ?? .white
+        }
+        
         return overlay
     }
     
@@ -248,7 +258,7 @@ class AUAuthNavigator: NSObject {
     /**
      Present overlayView to hide possible content that shouldn't be shown before login screen can popup.
      */
-    func presentOverlay() {
+    private func presentOverlay() {
         
         // Add if not already in view
         if overlayView == nil {
@@ -265,7 +275,7 @@ class AUAuthNavigator: NSObject {
     
     
     
-    func dismissOverlay(animated: Bool) {
+    private func dismissOverlay(animated: Bool) {
         if overlayView != nil {
             if animated {
                 UIView.animate(withDuration: 0.3, animations: {
