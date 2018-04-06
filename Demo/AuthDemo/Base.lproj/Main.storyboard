@@ -124,12 +124,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TQF-gU-d0b"/>
                     </view>
-                    <connections>
-                        <segue destination="J8m-sq-ZQE" kind="unwind" identifier="AULoginUnwind" customClass="AUSegueFadeUnwind" customModule="AuthDemo" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="D3o-Jp-4Dv"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90Y-ca-aKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="J8m-sq-ZQE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="124" y="-732"/>
         </scene>
@@ -164,11 +160,9 @@
                     </view>
                     <connections>
                         <outlet property="progressView" destination="hCV-DP-KpE" id="XN7-CT-aqS"/>
-                        <segue destination="9p3-bQ-p0I" kind="unwind" identifier="AULoadingUnwind" customClass="AUSegueFadeUnwind" customModule="AuthDemo" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="mSF-f7-ugc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Pc-1K-fbS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="9p3-bQ-p0I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1150" y="-732"/>
         </scene>

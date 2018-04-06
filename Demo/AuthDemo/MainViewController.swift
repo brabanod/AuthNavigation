@@ -46,10 +46,6 @@ class MainViewController: UIViewController, AUAuthenticatable {
         authNavigator.stopAuthentication()
     }
     
-    @IBAction func returnFromSegueActions(sender: UIStoryboardSegue) {
-        
-    }
-    
     
     
     
