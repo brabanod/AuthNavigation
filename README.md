@@ -2,8 +2,10 @@
   <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/LogoHeader.png?raw=true" alt="AuthNavigation Logo"/>
 </p>
 
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AuthNavigation.svg)](https://img.shields.io/cocoapods/v/AuthNavigation.svg)
-[![Platform](https://img.shields.io/cocoapods/p/AuthNavigation.svg)](https://cocoapods.org/pods/AuthNavigation)
+<p align="center">
+  <img src="https://img.shields.io/cocoapods/v/AuthNavigation.svg" alt="CocoaPods Compatible" style="padding:10px"/>
+  <img src="https://img.shields.io/cocoapods/p/AuthNavigation.svg" alt="Platform" style="padding:10px"/>
+</p>
 
 ## Motivation
 AuthNavigation was created to simplify the process of login in your app, after a simple setup AuthNavigation organizes the presentation of your custom Login (and Loading) screen.
