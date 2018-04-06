@@ -7,19 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5024B16520781E770014D781 /* AUAuthNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5024B16420781E770014D781 /* AUAuthNavigator.swift */; };
 		50D23FE8206EDC77007B0241 /* AuthNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 50D23FE6206EDC77007B0241 /* AuthNavigation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50D23FF7206EDDAD007B0241 /* AUSegueFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D23FF4206EDDAD007B0241 /* AUSegueFade.swift */; };
-		50D23FF8206EDDAD007B0241 /* AUAuthNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D23FF5206EDDAD007B0241 /* AUAuthNavigator.swift */; };
-		50D23FF9206EDDAD007B0241 /* AUSegueFadeUnwind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D23FF6206EDDAD007B0241 /* AUSegueFadeUnwind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5024B16420781E770014D781 /* AUAuthNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUAuthNavigator.swift; sourceTree = "<group>"; };
 		50D23FE3206EDC77007B0241 /* AuthNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D23FE6206EDC77007B0241 /* AuthNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthNavigation.h; sourceTree = "<group>"; };
 		50D23FE7206EDC77007B0241 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50D23FF4206EDDAD007B0241 /* AUSegueFade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUSegueFade.swift; sourceTree = "<group>"; };
-		50D23FF5206EDDAD007B0241 /* AUAuthNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUAuthNavigator.swift; sourceTree = "<group>"; };
-		50D23FF6206EDDAD007B0241 /* AUSegueFadeUnwind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AUSegueFadeUnwind.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,10 +48,8 @@
 		50D23FE5206EDC77007B0241 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				5024B16420781E770014D781 /* AUAuthNavigator.swift */,
 				50D23FE6206EDC77007B0241 /* AuthNavigation.h */,
-				50D23FF5206EDDAD007B0241 /* AUAuthNavigator.swift */,
-				50D23FF4206EDDAD007B0241 /* AUSegueFade.swift */,
-				50D23FF6206EDDAD007B0241 /* AUSegueFadeUnwind.swift */,
 				50D23FE7206EDC77007B0241 /* Info.plist */,
 			);
 			path = Source;
@@ -104,7 +98,7 @@
 				TargetAttributes = {
 					50D23FE2206EDC77007B0241 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -141,9 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50D23FF7206EDDAD007B0241 /* AUSegueFade.swift in Sources */,
-				50D23FF9206EDDAD007B0241 /* AUSegueFadeUnwind.swift in Sources */,
-				50D23FF8206EDDAD007B0241 /* AUAuthNavigator.swift in Sources */,
+				5024B16520781E770014D781 /* AUAuthNavigator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
