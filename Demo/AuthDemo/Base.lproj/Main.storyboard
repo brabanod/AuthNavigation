@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,40 +20,72 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="LoginOverlays" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="AuthDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmU-yF-4Vc">
-                                <rect key="frame" x="87" y="100" width="200" height="200"/>
-                                <color key="backgroundColor" red="1" green="0.53465401785714284" blue="0.42606026785714285" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dl1-sK-ccC">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmU-yF-4Vc">
+                                        <rect key="frame" x="87.5" y="64" width="200" height="200"/>
+                                        <color key="backgroundColor" red="1" green="0.53465401785714284" blue="0.42606026785714285" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="OWH-63-WeZ"/>
+                                            <constraint firstAttribute="width" constant="200" id="rlH-Q4-aHM"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qls-mh-myR">
+                                        <rect key="frame" x="87.5" y="283" width="200" height="200"/>
+                                        <color key="backgroundColor" red="0.27022879464285715" green="0.24882812500000001" blue="0.42606026785714285" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Ul9-TE-hrS"/>
+                                            <constraint firstAttribute="width" constant="200" id="WSr-g2-7QW"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="OWH-63-WeZ"/>
-                                    <constraint firstAttribute="width" constant="200" id="rlH-Q4-aHM"/>
+                                    <constraint firstItem="qls-mh-myR" firstAttribute="centerX" secondItem="Dl1-sK-ccC" secondAttribute="centerX" id="96u-Uz-aVE"/>
+                                    <constraint firstItem="fmU-yF-4Vc" firstAttribute="centerX" secondItem="Dl1-sK-ccC" secondAttribute="centerX" id="Mww-nJ-Yk1"/>
+                                    <constraint firstItem="fmU-yF-4Vc" firstAttribute="centerY" secondItem="Dl1-sK-ccC" secondAttribute="centerY" multiplier="0.6" id="UaQ-2N-Inf"/>
+                                    <constraint firstItem="qls-mh-myR" firstAttribute="centerY" secondItem="Dl1-sK-ccC" secondAttribute="centerY" multiplier="1.4" id="g3O-85-yXv"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qls-mh-myR">
-                                <rect key="frame" x="87.5" y="367" width="200" height="200"/>
-                                <color key="backgroundColor" red="0.27022879464285715" green="0.24882812500000001" blue="0.42606026785714285" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0J-R3-O7U">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This view is not affected by the authentication process" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpW-fd-P8Q">
+                                        <rect key="frame" x="30" y="39.5" width="315" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.7971540178571429" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Ul9-TE-hrS"/>
-                                    <constraint firstAttribute="width" constant="200" id="WSr-g2-7QW"/>
+                                    <constraint firstAttribute="height" constant="120" id="YNy-Gt-pMW"/>
+                                    <constraint firstItem="RpW-fd-P8Q" firstAttribute="leading" secondItem="P0J-R3-O7U" secondAttribute="leading" constant="30" id="cDz-iJ-XuO"/>
+                                    <constraint firstAttribute="trailing" secondItem="RpW-fd-P8Q" secondAttribute="trailing" constant="30" id="rjx-xQ-6Gi"/>
+                                    <constraint firstItem="RpW-fd-P8Q" firstAttribute="centerY" secondItem="P0J-R3-O7U" secondAttribute="centerY" id="w6D-9V-uRX"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qls-mh-myR" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.4" id="4qj-R1-hsg"/>
-                            <constraint firstItem="fmU-yF-4Vc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="M3z-59-34C"/>
-                            <constraint firstItem="qls-mh-myR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yde-Tj-2u4"/>
-                            <constraint firstItem="fmU-yF-4Vc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nLt-OJ-FmZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Dl1-sK-ccC" secondAttribute="bottom" id="9xt-d6-zJy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dl1-sK-ccC" secondAttribute="trailing" id="HkE-qn-Sfb"/>
+                            <constraint firstItem="Dl1-sK-ccC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VFp-ko-rd1"/>
+                            <constraint firstItem="P0J-R3-O7U" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="eHG-h2-kH2"/>
+                            <constraint firstItem="Dl1-sK-ccC" firstAttribute="top" secondItem="P0J-R3-O7U" secondAttribute="bottom" id="lwB-bj-VrT"/>
+                            <constraint firstItem="P0J-R3-O7U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ncj-VM-SU4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P0J-R3-O7U" secondAttribute="trailing" id="sKW-Bd-p6f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <segue destination="a74-ip-BuP" kind="custom" identifier="AUAuthToLogin" customClass="AUSegueFade" customModule="LoginOverlays" customModuleProvider="target" id="1Cu-gd-vBX"/>
-                        <segue destination="95b-vJ-9OR" kind="custom" identifier="AUAuthToLoading" customClass="AUSegueFade" customModule="LoginOverlays" customModuleProvider="target" id="PWP-qs-Cxx"/>
+                        <outlet property="mainContentView" destination="Dl1-sK-ccC" id="rkA-uo-W2w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -63,7 +95,7 @@
         <!--Login View Controller-->
         <scene sceneID="7es-P5-Q5y">
             <objects>
-                <viewController storyboardIdentifier="LoginVC" id="a74-ip-BuP" customClass="LoginViewController" customModule="LoginOverlays" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="a74-ip-BuP" customClass="LoginViewController" customModule="AuthDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xwq-bG-5vC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +125,7 @@
                         <viewLayoutGuide key="safeArea" id="TQF-gU-d0b"/>
                     </view>
                     <connections>
-                        <segue destination="J8m-sq-ZQE" kind="unwind" identifier="AULoginUnwind" customClass="AUSegueFadeUnwind" customModule="LoginOverlays" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="D3o-Jp-4Dv"/>
+                        <segue destination="J8m-sq-ZQE" kind="unwind" identifier="AULoginUnwind" customClass="AUSegueFadeUnwind" customModule="AuthDemo" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="D3o-Jp-4Dv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="90Y-ca-aKF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -104,7 +136,7 @@
         <!--Loading View Controller-->
         <scene sceneID="5h8-sH-lmD">
             <objects>
-                <viewController storyboardIdentifier="LoadingVC" id="95b-vJ-9OR" customClass="LoadingViewController" customModule="LoginOverlays" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadingVC" id="95b-vJ-9OR" customClass="LoadingViewController" customModule="AuthDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0LG-97-Rpr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +164,7 @@
                     </view>
                     <connections>
                         <outlet property="progressView" destination="hCV-DP-KpE" id="XN7-CT-aqS"/>
-                        <segue destination="9p3-bQ-p0I" kind="unwind" identifier="AULoadingUnwind" customClass="AUSegueFadeUnwind" customModule="LoginOverlays" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="mSF-f7-ugc"/>
+                        <segue destination="9p3-bQ-p0I" kind="unwind" identifier="AULoadingUnwind" customClass="AUSegueFadeUnwind" customModule="AuthDemo" customModuleProvider="target" unwindAction="returnFromSegueActionsWithSender:" id="mSF-f7-ugc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Pc-1K-fbS" userLabel="First Responder" sceneMemberID="firstResponder"/>

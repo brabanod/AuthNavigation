@@ -14,19 +14,28 @@ class MainViewController: UIViewController, AUAuthenticatable {
     var isLoggedIn: Bool = false
     
     let authNavigator = AUAuthNavigator.sharedInstance
-
+    
+    
+    
+    @IBOutlet weak var mainContentView: UIView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         authNavigator.delegate = self
         
-        authNavigator.loginSegueID = "AUAuthToLogin"
-        authNavigator.loginUnwindSegueID = "AULoginUnwind"
+        // If you don't specify a hostView, the whole view of MainVC will be covered by authorization (try it)
+        authNavigator.hostView = mainContentView
         
-        // Outcomment the following two lines to see what happens when no loading screen is given
-        authNavigator.loadingSegueID = "AUAuthToLoading"
-        authNavigator.loadingUnwindSegueID = "AULoadingUnwind"
+        authNavigator.loginVCId = "LoginVC"
+        authNavigator.loadingVCId = "LoadingVC"
+        
+        // Additional parameters you can adjust
+        //authNavigator.overlayColor = .blue
+        //authNavigator.animationDuration = 0.1
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +57,7 @@ class MainViewController: UIViewController, AUAuthenticatable {
     // MARK: - Authentication
     
     func shouldLogin() -> Bool {
-        print("ongoing authentication")
+        print("Authentication started in background")
         if isLoggedIn {
             return false
         } else {

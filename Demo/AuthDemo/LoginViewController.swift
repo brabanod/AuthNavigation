@@ -14,8 +14,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        authNavigator.loginDelegate = self
     }
 
     @IBAction func pressedLoginButton(_ sender: Any) {

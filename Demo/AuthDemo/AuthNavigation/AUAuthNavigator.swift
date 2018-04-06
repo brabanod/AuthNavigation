@@ -1,49 +1,105 @@
 //
-//  AUAuthNavigator.swift
-//  LoginOverlays
+//  AUAuthNavigatorView.swift
+//  AuthDemo
 //
-//  Created by Pascal Braband on 30.03.18.
+//  Created by Pascal Braband on 05.04.18.
 //  Copyright © 2018 Pascal Braband. All rights reserved.
 //
 
 import UIKit
 
+
+
+
+
+
 public protocol AUAuthenticatable where Self : UIViewController {
+    
+    
+    
+    /**
+     Implement your authentication process in here
+     
+     - Important:
+     Sometimes this method gets called from a background thread. Make sure that if you do UI changes in this method (which actually should not be the case) do them in the main thread.
+    */
     func shouldLogin() -> Bool
+    
+    
+    
+    /**
+     Here you can execute additional actions when returning from the login, but of course you don't need to.
+    */
     func willReturnFromLoginActions(success: Bool)
 }
 
-public class AUAuthNavigator: NSObject {
+
+
+
+
+
+
+
+
+// MARK: -
+class AUAuthNavigator: UIView {
+    
+    
     
     public static var sharedInstance = AUAuthNavigator()
     
     
     
+    /**
+     Specify a custom duration for all animations done by AUAuthNavigator (overlay, login and loading fade in/out)
+    */
+    public var animationDuration: TimeInterval = 0.3
+    
+    
+    
+    
+    
+    
     // MARK: View Controllers
     
+    
+    
+    /**
+     The delegate is the host of the authentication, it's the view controller, that needs authentication
+    */
     public var delegate: (UIViewController & AUAuthenticatable)?
-    public var loginDelegate: UIViewController?
-    public var loadingDelegate: UIViewController?
     
     
     
-    // MARK: Segues
-    
-    public var loginSegueID: String = ""
-    public var loadingSegueID: String = ""
-    public var loginUnwindSegueID: String = ""
-    public var loadingUnwindSegueID: String = ""
+    /**
+     You can specify a host view for your authentication. The login and loading screen (if given) will then only be presented in that host view. By default the host is the entire screen.
+    */
+    public var hostView: UIView?
     
     
     
+    /**
+     Set this to be the Storyboard ID of your LoginVC
+    */
+    public var loginVCId: String?
     
     
     
-    // MARK: - Auth navigation
+    /**
+     Set this to be the Storyboard ID of your LoadingVC
+     */
+    public var loadingVCId: String?
     
     
     
-    private var didStartAuthentication: Bool = false
+    
+    
+    
+    // MARK: - Authentication
+    
+    
+    
+    private var isAuthenticationRunning: Bool = false
     
     
     
@@ -53,15 +109,21 @@ public class AUAuthNavigator: NSObject {
             return
         }
         
+        // Set default authView to delegates view
+        if hostView == nil {
+            hostView = delegate?.view
+        }
+        
         presentOverlay()
         
         // Start process if not already started (because method called within viewWillAppear, it can get called twice -> important to track this)
-        if didStartAuthentication == false {
+        if isAuthenticationRunning == false {
+            isAuthenticationRunning = true
             
             // Check if should present loadingVC
             if didLoginSuccessfully == false {
                 
-                if loadingSegueID != "" {
+                if loadingVCId != nil {
                     if didLoad == false {
                         // Calculate if user shouldLogin
                         DispatchQueue.global().async {
@@ -70,12 +132,12 @@ public class AUAuthNavigator: NSObject {
                         presentLoadingVC()
                     }
                         
-                    // PresentLoginVC
+                        // PresentLoginVC
                     else if shouldLoginCalculationCache == true {
                         presentLoginVC()
                     }
                         
-                    // Continue to normal view
+                        // Continue to normal view
                     else {
                         dismissOverlay(animated: true)
                     }
@@ -87,7 +149,7 @@ public class AUAuthNavigator: NSObject {
                         presentLoginVC()
                     }
                         
-                    // Continue to normal view
+                        // Continue to normal view
                     else {
                         dismissOverlay(animated: true)
                     }
@@ -99,14 +161,12 @@ public class AUAuthNavigator: NSObject {
         } else {
             dismissOverlay(animated: true)
         }
-        
-        didStartAuthentication = true
     }
     
     
     
     public func stopAuthentication() {
-        didStartAuthentication = false
+        isAuthenticationRunning = false
         dismissOverlay(animated: false)
     }
     
@@ -124,6 +184,8 @@ public class AUAuthNavigator: NSObject {
      */
     private var shouldLoginCalculationCache: Bool = true
     
+    
+    
     /**
      Indicates whether user is logged in after returning from login screen
      */
@@ -131,19 +193,51 @@ public class AUAuthNavigator: NSObject {
     
     
     
+    /**
+     If the LoadingVC is currently presented, it will be saved in this variable
+    */
+    private var loginVC: UIViewController?
+    
+    
+    
     private func presentLoginVC() {
         
-        if loginSegueID == "" {
-            print("ERROR: Specify loginSegueID in order to show a login view controller.")
+        if loginVCId == nil || delegate == nil {
+            print("ERROR: Specify delegate and loginDelegate in order to show a login view.")
+            return
+        }
+        
+        if delegate == nil {
+            print("ERROR: Specify delegate in order to show a login view.")
+            return
+        }
+        
+        if hostView == nil {
+            print("ERROR: authView should not be nil, even if you didn't set it.")
+            return
         }
             
-        else {
-            self.presentOverlay()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001, execute: {
-                self.delegate?.performSegue(withIdentifier: self.loginSegueID, sender: self.delegate)
-            })
-        }
+        self.presentOverlay()
+        
+        // Add LoginVC into container
+        loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: loginVCId!) as UIViewController
+        delegate!.addChildViewController(loginVC!)
+        
+        loginVC!.view.alpha = 0.0
+        hostView!.addSubview(loginVC!.view)
+        loginVC!.view.frame = hostView!.bounds
+        loginVC!.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        loginVC!.didMove(toParentViewController: delegate!)
+        
+        // Animate fade in
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.loginVC!.view.alpha = 1.0
+        })
+        
+        // Need to reset didStartAuthentication because after returning from login,
+        // startAuthentication should run again
+        isAuthenticationRunning = false
     }
     
     
@@ -151,16 +245,29 @@ public class AUAuthNavigator: NSObject {
     private func willReturnFromLogin(success: Bool) {
         didLoginSuccessfully = success
         delegate?.willReturnFromLoginActions(success: success)
+        startAuthentication()
     }
     
     
     
+    /**
+     Call this method from your LoginVC if the login process is finished
+    */
     public func finishLogin(success: Bool) {
-        if loginUnwindSegueID == "" {
-            print("ERROR: Specify loginUnwindSegueID in order to perform unwind segue.")
+        if loginVCId == nil {
+            print("ERROR: Cannot return from login if no loginDelegate is given.")
         } else {
             willReturnFromLogin(success: success)
-            loginDelegate?.performSegue(withIdentifier: loginUnwindSegueID, sender: loginDelegate)
+            
+            // Animate fade out
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.loginVC!.view.alpha = 1.0
+            }, completion: { (success) in
+                // Remove LoginVC from container
+                self.loginVC!.view.removeFromSuperview()
+                self.loginVC!.removeFromParentViewController()
+                self.loginVC = nil
+            })
         }
     }
     
@@ -179,38 +286,76 @@ public class AUAuthNavigator: NSObject {
     private var didLoad = false
     
     
+    /**
+     If the LoadingVC is currently presented, it will be saved in this variable
+    */
+    private var loadingVC: UIViewController?
+    
+    
     
     private func presentLoadingVC() {
         
-        if loadingSegueID == "" {
-            print("ERROR: Specify loadingSegueID in order to show a login view controller.")
+        if loadingVCId == nil {
+            print("ERROR: Specify loadingDelegate in order to show a loading view.")
         }
-
-        else {
-            self.presentOverlay()
-            
-            // Present loading screen
-            // Present LoadingVC and remove overlay (after tiny delay to prevent "unbalanced call")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001, execute: {
-                self.delegate?.performSegue(withIdentifier: self.loadingSegueID, sender: self.delegate)
-            })
+        
+        if delegate == nil {
+            print("ERROR: Specify delegate in order to show a loading view.")
+            return
         }
+        
+        if hostView == nil {
+            print("ERROR: authView should not be nil, even if you didn't set it.")
+            return
+        }
+        
+        // Add LoginVC into container
+        loadingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: loadingVCId!) as UIViewController
+        delegate!.addChildViewController(loadingVC!)
+        
+        loadingVC!.view.alpha = 0.0
+        hostView!.addSubview(loadingVC!.view)
+        loadingVC!.view.frame = hostView!.bounds
+        loadingVC!.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        loadingVC!.didMove(toParentViewController: delegate!)
+        
+        // Animate fade in
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.loadingVC!.view.alpha = 1.0
+        })
+        
+        // Need to reset didStartAuthentication because after returning from loading,
+        // startAuthentication should run again
+        isAuthenticationRunning = false
     }
     
     
     
     private func willReturnFromLoading() {
         didLoad = true
+        startAuthentication()
     }
     
     
     
+    /**
+     Call this method from your LoginVC if the login process is finished
+    */
     public func finishLoading() {
-        if loadingUnwindSegueID == "" {
-            print("ERROR: Specify loadingUnwindSegueID in order to perform unwind segue.")
+        if loadingVCId == nil {
+            print("ERROR: Cannot return from loading if no loadingDelegate is given.")
         } else {
             willReturnFromLoading()
-            loadingDelegate?.performSegue(withIdentifier: loadingUnwindSegueID, sender: loadingDelegate)
+            
+            // Animate fade out
+            UIView.animate(withDuration: animationDuration, animations: {
+                self.loadingVC!.view.alpha = 1.0
+            }, completion: { (success) in
+                // Remove LoginVC from container
+                self.loadingVC!.view.removeFromSuperview()
+                self.loadingVC!.removeFromParentViewController()
+                self.loadingVC = nil
+            })
         }
     }
     
@@ -223,14 +368,18 @@ public class AUAuthNavigator: NSObject {
     
     
     
+    /**
+     The overlay is used to hide the content of your MainVC during authorization. If you need this overlay to have a special color, then specify it here. Default behaviour is to use the background color of the hostView.
+    */
     public var overlayColor: UIColor?
     
     
     private var overlayView: UIView?
     
     
+    
     /**
-     Create a customized overlay view which is used to hide the content area before login screen can be presented.
+     Creates an overlay view which is used to hide the content area before login screen can be presented.
      
      - Important:
      Override this function if you want to customize the overlay view
@@ -241,13 +390,13 @@ public class AUAuthNavigator: NSObject {
      A UIView object which is used as the overlay
      */
     private func getOverlayView() -> UIView {
-        let overlay = UIView(frame: delegate?.view.bounds ?? CGRect.zero)
+        let overlay = UIView(frame: hostView?.bounds ?? CGRect.zero)
         
         if overlayColor != nil {
             overlay.backgroundColor = overlayColor
         } else {
             // Default color is the host vc's background color, or white if not existent
-            overlay.backgroundColor = delegate?.view.backgroundColor ?? .white
+            overlay.backgroundColor = hostView?.backgroundColor ?? .white
         }
         
         return overlay
@@ -265,7 +414,7 @@ public class AUAuthNavigator: NSObject {
             overlayView = getOverlayView()
             
             if overlayView!.superview == nil {
-                delegate?.view.addSubview(overlayView!)
+                hostView?.addSubview(overlayView!)
             }
         }
         
@@ -278,7 +427,7 @@ public class AUAuthNavigator: NSObject {
     private func dismissOverlay(animated: Bool) {
         if overlayView != nil {
             if animated {
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: animationDuration, animations: {
                     self.overlayView!.alpha = 0.0
                 }, completion: { (success) in
                     self.overlayView!.isHidden = true
@@ -288,5 +437,6 @@ public class AUAuthNavigator: NSObject {
             }
         }
     }
-
+    
 }
+
