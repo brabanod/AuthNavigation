@@ -42,7 +42,7 @@ public protocol AUAuthenticatable where Self : UIViewController {
 
 
 // MARK: -
-class AUAuthNavigator: UIView {
+public class AUAuthNavigator: UIView {
     
     
     
