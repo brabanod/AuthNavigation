@@ -2,7 +2,7 @@
   <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/LogoHeader.png?raw=true" alt="AuthNavigation Logo"/>
 </p>
 
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AuthNavigation.svg](https://img.shields.io/cocoapods/v/AuthNavigation.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AuthNavigation.svg)](https://img.shields.io/cocoapods/v/AuthNavigation.svg)
 [![Platform](https://img.shields.io/cocoapods/p/AuthNavigation.svg)](https://cocoapods.org/pods/AuthNavigation)
 
 ## Motivation
