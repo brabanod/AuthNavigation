@@ -216,8 +216,8 @@ public class AUAuthNavigator: UIView {
             print("ERROR: authView should not be nil, even if you didn't set it.")
             return
         }
-            
-            
+        
+        
         self.presentOverlay()
         
         // Add LoginVC into container
@@ -413,9 +413,10 @@ public class AUAuthNavigator: UIView {
         if overlayView == nil {
             overlayView = getOverlayView()
             
-            if overlayView!.superview == nil {
-                hostView?.addSubview(overlayView!)
-            }
+        }
+        
+        if overlayView!.superview == nil {
+            hostView?.addSubview(overlayView!)
         }
         
         // Present overlay
@@ -435,6 +436,8 @@ public class AUAuthNavigator: UIView {
             } else {
                 overlayView!.isHidden = true
             }
+            
+            self.overlayView!.removeFromSuperview()
         }
     }
     
