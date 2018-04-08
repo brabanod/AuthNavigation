@@ -1,6 +1,6 @@
 //
-//  AUAuthNavigatorView.swift
-//  AuthDemo
+//  AUAuthNavigator.swift
+//  AuthNavigation
 //
 //  Created by Pascal Braband on 05.04.18.
 //  Copyright © 2018 Pascal Braband. All rights reserved.
@@ -42,7 +42,7 @@ public protocol AUAuthenticatable where Self : UIViewController {
 
 
 // MARK: -
-class AUAuthNavigator: UIView {
+public class AUAuthNavigator: UIView {
     
     
     
@@ -216,8 +216,8 @@ class AUAuthNavigator: UIView {
             print("ERROR: authView should not be nil, even if you didn't set it.")
             return
         }
-            
-            
+        
+        
         self.presentOverlay()
         
         // Add LoginVC into container
@@ -261,7 +261,7 @@ class AUAuthNavigator: UIView {
             
             // Animate fade out
             UIView.animate(withDuration: animationDuration, animations: {
-                self.loginVC!.view.alpha = 1.0
+                self.loginVC!.view.alpha = 0.0
             }, completion: { (success) in
                 // Remove LoginVC from container
                 self.loginVC!.view.removeFromSuperview()
@@ -349,7 +349,7 @@ class AUAuthNavigator: UIView {
             
             // Animate fade out
             UIView.animate(withDuration: animationDuration, animations: {
-                self.loadingVC!.view.alpha = 1.0
+                self.loadingVC!.view.alpha = 0.0
             }, completion: { (success) in
                 // Remove LoginVC from container
                 self.loadingVC!.view.removeFromSuperview()
@@ -413,9 +413,10 @@ class AUAuthNavigator: UIView {
         if overlayView == nil {
             overlayView = getOverlayView()
             
-            if overlayView!.superview == nil {
-                hostView?.addSubview(overlayView!)
-            }
+        }
+        
+        if overlayView!.superview == nil {
+            hostView?.addSubview(overlayView!)
         }
         
         // Present overlay
@@ -435,6 +436,8 @@ class AUAuthNavigator: UIView {
             } else {
                 overlayView!.isHidden = true
             }
+            
+            self.overlayView!.removeFromSuperview()
         }
     }
     
