@@ -5,16 +5,19 @@
 <p align="center">
   <img src="https://img.shields.io/cocoapods/v/AuthNavigation.svg" alt="CocoaPods Compatible" style="padding:10px"/>
   <img src="https://img.shields.io/cocoapods/p/AuthNavigation.svg" alt="Platform" style="padding:10px"/>
+  <img src="https://img.shields.io/badge/Swift-4.1-orange.svg" alt="Swift Version" style="padding:10px"/>
+  <img src="https://img.shields.io/cocoapods/l/AuthNavigation.svg" alt="License" style="padding:10px"/>
 </p>
 
 
 
 
-## Motivation
-AuthNavigation is an app flow manager to use for login processes in iOS apps. It was created to simplify the process of login in your app, after a simple setup AuthNavigation organizes the presentation of your custom Login (and Loading) screen.
+AuthNavigation organizes the login process in your app, including auto-login. It checks whether your user is logged in or not, and based on this either presents a login screen or the screen you wanted to protect. AuthNavigation can also present a loading screen in case you have to request a server to check wheter user is logged in or not.
 
 AuthNavigation is designed so that you can set it up on every ViewController that you want, no matter if it's the entry VC of your app or any other VC. And of course you can also setup AuthNavigation on multiple VC's.
 Another feature of AuthNavigation is that you can integrate a loading screen very simple. This may be needed if you have to request a server in order to know if login is needed or not.
+
+More on the motivation for this project can be found in [this](https://medium.com/@pascal.braband/navigating-your-ios-app-through-login-51c88e2329d3) article.
 
 
 
