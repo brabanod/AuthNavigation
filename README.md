@@ -13,7 +13,7 @@
 
 
 ## Motivation
-AuthNavigation is an app flow manager to use for login processes in iOS apps. It was created to simplify the process of login in your app, after a simple setup AuthNavigation organizes the presentation of your custom Login (and Loading) screen.
+AuthNavigation is a light app flow manager to use for login/authentication processes in iOS apps. It was created to simplify the process of login in your app, after a simple setup AuthNavigation organizes the presentation of your custom Login (and Loading) screen.
 
 AuthNavigation is designed so that you can set it up on every ViewController that you want, no matter if it's the entry VC of your app or any other VC. And of course you can also setup AuthNavigation on multiple VC's.
 Another feature of AuthNavigation is that you can integrate a loading screen very simple. This may be needed if you have to request a server in order to know if login is needed or not.
