@@ -18,6 +18,8 @@ AuthNavigation is a light app flow manager to use for login/authentication proce
 AuthNavigation is designed so that you can set it up on every ViewController that you want, no matter if it's the entry VC of your app or any other VC. And of course you can also setup AuthNavigation on multiple VC's.
 Another feature of AuthNavigation is that you can integrate a loading screen very simple. This may be needed if you have to request a server in order to know if login is needed or not.
 
+More on motivation in [this](https://medium.com/@pascal.braband/navigating-your-ios-app-through-login-51c88e2329d3) article.
+
 
 
 
