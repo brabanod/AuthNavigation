@@ -69,7 +69,7 @@ end
 ## Usage
 There are two ways to use AuthNavigation:
 
-* **Basic:** Your `MainVC` is protected by a login screen, let's call it `LoginVC`. As soon as `MainVC` is presented, it will check, wether login is needed or not and will eventually present the `LoginVC`.
+* **Basic:** Your `HostVC` is protected by a login screen, let's call it `LoginVC`. As soon as `HostVC` is presented, it will check, wether login is needed or not and will eventually present the `LoginVC`.
 
 * **Advanced:** The same functionality as *Basic* + presenting a `LoadingVC` while checking wheter login is needed or not (may be useful if you have to request a server if user should pass or not)
 
@@ -79,21 +79,21 @@ Follow the below steps to use AuthNavigation:
 ### Short Instructions
 
 1. *Project:* Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for each)
-3. *MainVC:* Create an `AUAuthNavigator` instance
-4. *MainVC:* Make the class conform to `AUAuthenticatable` protocol, set the delegate and implement the two methods
-5. *MainVC:* Set the Storyboard ID's to the corresponding properties of your `authNavigator`
-6. *MainVC:* Call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`
+3. *HostVC:* Create an `AUAuthNavigator` instance
+4. *HostVC:* Make the class conform to `AUAuthenticatable` protocol, set the delegate and implement the two methods
+5. *HostVC:* Set the Storyboard ID's to the corresponding properties of your `authNavigator`
+6. *HostVC:* Call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`
 7. *LoginVC:* Call `finishLogin(success: Bool)` when your login process is done
 8. *LoadingVC:* Call `finishLoading` when your loading process is done
 
 
 ### Complete Instrcutions
 
-1. **Setting up VC's:** You need to create minimum 2 VC's in Interface Builder and their related controller classes, one is your `MainVC` and the other is your `LoginVC`. If you want a loading screen, you have to create a third VC, which we will name `LoadingVC`
+1. **Setting up VC's:** You need to create minimum 2 VC's in Interface Builder and their related controller classes, one is your `HostVC` and the other is your `LoginVC`. If you want a loading screen, you have to create a third VC, which we will name `LoadingVC`
 
-2. **Creating `AUAuthNavigatorInstance`:** In your `MainVC` you need an instance of `AUAuthNavigator`. If you only use AuthNavigation on one of your VC's in your app it's a good practice to use the `sharedInstance` from the class itself. If you use AuthNavigation multiple times in your app you should create your own instance. because your `LoginVC` and `LoadingVC` will need the same instance as `MainVC` it's a good idea, to declare the instance as a `static` variable in `MainVC` and use this in the other classes like `MainVC.authNavigator`.
+2. **Creating `AUAuthNavigatorInstance`:** In your `HostVC` you need an instance of `AUAuthNavigator`. If you only use AuthNavigation on one of your VC's in your app it's a good practice to use the `sharedInstance` from the class itself. If you use AuthNavigation multiple times in your app you should create your own instance. because your `LoginVC` and `LoadingVC` will need the same instance as `HostVC` it's a good idea, to declare the instance as a `static` variable in `HostVC` and use this in the other classes like `HostVC.authNavigator`.
 
-3. **Setting up `MainVC`:** Your `MainVC` class needs to conform to the `AUAuthenticatable` protocol. In `viewDidLoad` set the delegate of your `AUAuthNavigator` instance, let's call it `authNavigator`.  
+3. **Setting up `HostVC`:** Your `HostVC` class needs to conform to the `AUAuthenticatable` protocol. In `viewDidLoad` set the delegate of your `AUAuthNavigator` instance, let's call it `authNavigator`.  
  Next set the Storyboard ID's (`loginVCId` and if you want `loadingVCId`).  
  To actually use the authenticator, call `authNavigator.startAuthentication()` in `viewWillAppear` and `authNavigator.stopAuthentication()` in view.  
  Now implement the 2 methods of the protocol:
@@ -105,10 +105,13 @@ Follow the below steps to use AuthNavigation:
 6. **Setting up `LoadingVC`:** After finishing your loading process call `authNavigator.finishLoading`.
 
 
+**Logout**: Call `logout(presentLoading: Bool)` in your to `HostVC`. If `presentLoading` is set to `true`, the loading screen will be presented, if it's set to `false`, the login screen will be presented directly.
+
+
 ### Additional settings
 
-* **`hostView`:** This is the container view for your login and loading screen, setting this to a specific view in your `MainVC` can be useful if you don't want the entire screen to be covered by the authentication. By default it's set to the entire screen.
-* **`overlayColor`:** The overlay is used to hide the content of your `MainVC` during authorization. If you need this overlay to have a special color, then specify it here. Default behaviour is to use the background color of the `hostView`.
+* **`hostView`:** This is the container view for your login and loading screen, setting this to a specific view in your `HostVC` can be useful if you don't want the entire screen to be covered by the authentication. By default it's set to the entire screen.
+* **`overlayColor`:** The overlay is used to hide the content of your `HostVC` during authorization. If you need this overlay to have a special color, then specify it here. Default behaviour is to use the background color of the `hostView`.
 * **`animationDuration`:** Here you can specify a custom duration for all animations done by AUAuthNavigator (overlay, login and loading fade in/out).
 
 
