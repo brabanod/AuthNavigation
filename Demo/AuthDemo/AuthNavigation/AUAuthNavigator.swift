@@ -192,16 +192,12 @@ public class AUAuthNavigator: UIView {
         stopAuthentication()
         overlayView = nil
         
-        // If should present loading screen -> Reset loadingVCId -> Loading screen won't be presented after logout
-        let cacheLoadingVCId = loadingVCId
-        if !presentLoading {
-            loadingVCId = nil
+        // Either present loading screen or login directly
+        if presentLoading {
+            presentLoadingVC()
+        } else {
+            presentLoginVC()
         }
-        
-        // Present login screen (and maybe loading)
-        startAuthentication()
-        
-        loadingVCId = cacheLoadingVCId
     }
     
     

@@ -11,6 +11,7 @@ import UIKit
 class SecretsViewController: UIViewController, AUAuthenticatable {
     
     @IBOutlet weak var secretView: UIView!
+    @IBOutlet weak var authenticateAgainButton: UIButton!
     
     // Change the value to true to see what happens, when user does not need to login
     var isLoggedIn: Bool = false
@@ -30,6 +31,12 @@ class SecretsViewController: UIViewController, AUAuthenticatable {
         
         SecretsViewController.authNavigator.loadingVCId = "SecretsLoadingVC"
         SecretsViewController.authNavigator.loginVCId = "SecretsLoginVC"
+        
+        
+        // Disable authenticateAgain button if user is already logged out
+        if !isLoggedIn {
+            authenticateAgainButton.isEnabled = false
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +51,7 @@ class SecretsViewController: UIViewController, AUAuthenticatable {
     
     
     @IBAction func authenticateAgain(_ sender: Any) {
+        authenticateAgainButton.isEnabled = false
         SecretsViewController.authNavigator.logout(presentLoading: true)
     }
     
@@ -67,6 +75,7 @@ class SecretsViewController: UIViewController, AUAuthenticatable {
         // This is only done, to simulate login. Because there is no backend,
         // login status is saved locally in a variable
         isLoggedIn = true
+        authenticateAgainButton.isEnabled = true
     }
 
 }

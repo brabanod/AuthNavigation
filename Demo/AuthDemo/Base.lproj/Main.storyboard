@@ -243,6 +243,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
                         <viewLayoutGuide key="safeArea" id="51h-R9-51S"/>
                     </view>
                     <connections>
+                        <outlet property="authenticateAgainButton" destination="o7U-eD-hqr" id="hMR-ne-dUy"/>
                         <outlet property="secretView" destination="dgW-i8-uAh" id="RiT-BG-KJm"/>
                     </connections>
                 </viewController>
