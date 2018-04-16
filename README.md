@@ -63,7 +63,7 @@ end
 
 
 
-
+<br></br>
 ## Usage
 There are two ways to use AuthNavigation:
 
@@ -147,7 +147,7 @@ Call `logout(presentLoading: Bool)` in your to `HostVC`. If `presentLoading` is 
 
 
 
-
+<br></br>
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
 
