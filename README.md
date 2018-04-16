@@ -84,6 +84,7 @@ Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for
 ### HostVC setup
 First create an `AUAuthNavigator` instance (you can either use the `AUAuthNavigator.sharedInstance` or you create your own static instance). Then set the Storyboard ID's of `LoginVC` and `LoadingVC` to the corresponding properties. To actually use the authenticator, call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`.
 
+```swift
     class HostVC: UIViewController {
     
         static let authNavigator = AUAuthNavigator()
@@ -105,9 +106,11 @@ First create an `AUAuthNavigator` instance (you can either use the `AUAuthNaviga
             MainViewController.authNavigator.stopAuthentication()
         }
     }
+```
 
 Set the delegate of the authenticator to `self`. Therefore `HostVC` needs to coform to the `AUAuthenticatable` protocol:
 
+```swift
     extension HostVC: AUAuthenticatable
     
         func shouldLogin() -> Bool {
@@ -118,6 +121,7 @@ Set the delegate of the authenticator to `self`. Therefore `HostVC` needs to co
             // Additional actions after login (not necessary)
         }
     }
+```
 
 
 
