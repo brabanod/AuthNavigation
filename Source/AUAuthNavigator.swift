@@ -103,6 +103,9 @@ public class AUAuthNavigator: UIView {
     
     
     
+    /**
+     Call this method in viewWillAppear of your HostVC. It will start the authentication process.
+    */
     public func startAuthentication() {
         if delegate == nil {
             print("ERROR: You've forgotten to set the delegate")
@@ -165,12 +168,22 @@ public class AUAuthNavigator: UIView {
     
     
     
+    /**
+     Call this method in viewWillDisappear of your HostVC.
+    */
     public func stopAuthentication() {
         isAuthenticationRunning = false
         dismissOverlay(animated: false)
     }
     
-    
+
+
+    /**
+     Call this method if you want to logout. The login screen will be presented.
+     
+     - parameters:
+        - presentLoading: Set this to true if you want to present the loading screen again after logout.
+    */
     public func logout(presentLoading: Bool) {
         
         // Reset everything
