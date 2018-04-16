@@ -76,7 +76,7 @@ Follow the below steps to integrate AuthNavigation in your project:
 
 
 
-### Project setup
+### Interface setup
 Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for each)
 
 
