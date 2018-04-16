@@ -111,7 +111,7 @@ First create an `AUAuthNavigator` instance (you can either use the `AUAuthNaviga
 Set the delegate of the authenticator to `self`. Therefore `HostVC` needs to coform to the `AUAuthenticatable` protocol:
 
 ```swift
-    extension HostVC: AUAuthenticatable
+    extension HostVC: AUAuthenticatable {
     
         func shouldLogin() -> Bool {
             // Implement your authentication process here. If your user needs to login, return true, if he is already logged in return false
