@@ -170,20 +170,20 @@ public class AUAuthNavigator: UIView {
     
     /**
      Call this method in viewWillDisappear of your HostVC.
-    */
+     */
     public func stopAuthentication() {
         isAuthenticationRunning = false
         dismissOverlay(animated: false)
     }
     
-
-
+    
+    
     /**
      Call this method if you want to logout. The login screen will be presented.
      
      - parameters:
-        - presentLoading: Set this to true if you want to present the loading screen again after logout.
-    */
+     - presentLoading: Set this to true if you want to present the loading screen again after logout.
+     */
     public func logout(presentLoading: Bool) {
         
         // Reset everything
@@ -192,16 +192,12 @@ public class AUAuthNavigator: UIView {
         stopAuthentication()
         overlayView = nil
         
-        // If should present loading screen -> Reset loadingVCId -> Loading screen won't be presented after logout
-        let cacheLoadingVCId = loadingVCId
-        if !presentLoading {
-            loadingVCId = nil
+        // Either present loading screen or login directly
+        if presentLoading {
+            presentLoadingVC()
+        } else {
+            presentLoginVC()
         }
-        
-        // Present login screen (and maybe loading)
-        startAuthentication()
-        
-        loadingVCId = cacheLoadingVCId
     }
     
     
