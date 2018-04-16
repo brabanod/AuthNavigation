@@ -139,7 +139,7 @@ After login is finished, call `finishLogin(success: Bool)` on the static `authNa
 Call `logout(presentLoading: Bool)` in your to `HostVC`. If `presentLoading` is set to `true`, the loading screen will be presented, if it's set to `false`, the login screen will be presented directly.
 
 
-### `AUAuthenticator` additional settings
+### Additional settings for AUAuthenticator
 
 * **`hostView`:** This is the container view for your login and loading screen, setting this to a specific view in your `HostVC` can be useful if you don't want the entire screen to be covered by the authentication. By default it's set to the entire screen.
 * **`overlayColor`:** The overlay is used to hide the content of your `HostVC` during authorization. If you need this overlay to have a special color, then specify it here. Default behaviour is to use the background color of the `hostView`.
