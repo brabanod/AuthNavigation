@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/LogoHeader.png?raw=true" alt="AuthNavigation Logo"/>
+  <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="800"/>
 </p>
 
 <p align="center">
