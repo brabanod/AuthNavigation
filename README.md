@@ -85,42 +85,42 @@ Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for
 First create an `AUAuthNavigator` instance (you can either use the `AUAuthNavigator.sharedInstance` or you create your own static instance). Then set the Storyboard ID's of `LoginVC` and `LoadingVC` to the corresponding properties. To actually use the authenticator, call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`.
 
 ```swift
-    class HostVC: UIViewController {
+class HostVC: UIViewController {
     
-        static let authNavigator = AUAuthNavigator()
+    static let authNavigator = AUAuthNavigator()
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-        
-            MainViewController.authNavigator.delegate = self
-            
-            MainViewController.authNavigator.loginVCId = "LoginVC"
-            MainViewController.authNavigator.loadingVCId = "LoadingVC"
-        }
-
-        override func viewWillAppear(_ animated: Bool) {
-            MainViewController.authNavigator.startAuthentication()
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
     
-        override func viewWillDisappear(_ animated: Bool) {
-            MainViewController.authNavigator.stopAuthentication()
-        }
+        MainViewController.authNavigator.delegate = self
+           
+        MainViewController.authNavigator.loginVCId = "LoginVC"
+        MainViewController.authNavigator.loadingVCId = "LoadingVC"
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        MainViewController.authNavigator.startAuthentication()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        MainViewController.authNavigator.stopAuthentication()
+    }
+}
 ```
 
 Set the delegate of the authenticator to `self`. Therefore `HostVC` needs to coform to the `AUAuthenticatable` protocol:
 
 ```swift
-    extension HostVC: AUAuthenticatable {
+extension HostVC: AUAuthenticatable {
     
-        func shouldLogin() -> Bool {
-            // Implement your authentication process here. If your user needs to login, return true, if he is already logged in return false
-        }
-    
-        func willReturnFromLoginActions(success: Bool) {
-            // Additional actions after login (not necessary)
-        }
+    func shouldLogin() -> Bool {
+        // Implement your authentication process here. If your user needs to login, return true, if he is already logged in return false
     }
+    
+    func willReturnFromLoginActions(success: Bool) {
+        // Additional actions after login (not necessary)
+    }
+}
 ```
 
 
