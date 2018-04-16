@@ -1,18 +1,11 @@
 <p align="center">
-  <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="800"/>
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/cocoapods/v/AuthNavigation.svg" alt="CocoaPods Compatible" style="padding:10px"/>
   <img src="https://img.shields.io/cocoapods/p/AuthNavigation.svg" alt="Platform" style="padding:10px"/>
   <img src="https://img.shields.io/badge/Swift-4.1-orange.svg" alt="Swift Version" style="padding:10px"/>
   <img src="https://img.shields.io/cocoapods/l/AuthNavigation.svg" alt="License" style="padding:10px"/>
 </p>
 
-
-
-
-## AuthNavigation
+# AuthNavigation
 
 AuthNavigation is an iOS library, that organizes the login process in your app, making it easy to implement auto-login. AuthNavigation automatically checks if your user needs to login or not and presents the correct screens based on the result.
 
@@ -21,6 +14,11 @@ AuthNavigation can also organize loading screen, i.e. if you need to make server
 You can setup AuthNavigation on one or more `UIViewController`'s, it can authenticate the whole screen or just parts of it.
 
 AuthNavigation is not a replacement for `UINavigationController`, in fact you can use both side by side.
+
+<br></br>
+<p align="center">
+  <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="600"/>
+</p>
 
 
 
