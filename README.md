@@ -67,43 +67,72 @@ end
 ## Usage
 There are two ways to use AuthNavigation:
 
-* **Basic:** Your `HostVC` is protected by a login screen, let's call it `LoginVC`. As soon as `HostVC` is presented, it will check, wether login is needed or not and will eventually present the `LoginVC`.
+* **Basic (Login):** `HostVC` is protected by a login screen `LoginVC`. AuthNavigation will check whether to present this login screen or not
 
-* **Advanced:** The same functionality as *Basic* + presenting a `LoadingVC` while checking wheter login is needed or not (may be useful if you have to request a server if user should pass or not)
-
-Follow the below steps to use AuthNavigation:
+* **Advanced (Login + Loading):** Basic + `LoadingVC` which will be presented before `LoginVC`. May be useful if you have to request a server to check whether user should login or not.
 
 
-### Short Instructions
-
-1. *Project:* Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for each)
-3. *HostVC:* Create an `AUAuthNavigator` instance
-4. *HostVC:* Make the class conform to `AUAuthenticatable` protocol, set the delegate and implement the two methods
-5. *HostVC:* Set the Storyboard ID's to the corresponding properties of your `authNavigator`
-6. *HostVC:* Call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`
-7. *LoginVC:* Call `finishLogin(success: Bool)` when your login process is done
-8. *LoadingVC:* Call `finishLoading` when your loading process is done
+Follow the below steps to integrate AuthNavigation in your project:
 
 
-### Complete Instrcutions
 
-1. **Setting up VC's:** You need to create minimum 2 VC's in Interface Builder and their related controller classes, one is your `HostVC` and the other is your `LoginVC`. If you want a loading screen, you have to create a third VC, which we will name `LoadingVC`
-
-2. **Creating `AUAuthNavigatorInstance`:** In your `HostVC` you need an instance of `AUAuthNavigator`. If you only use AuthNavigation on one of your VC's in your app it's a good practice to use the `sharedInstance` from the class itself. If you use AuthNavigation multiple times in your app you should create your own instance. because your `LoginVC` and `LoadingVC` will need the same instance as `HostVC` it's a good idea, to declare the instance as a `static` variable in `HostVC` and use this in the other classes like `HostVC.authNavigator`.
-
-3. **Setting up `HostVC`:** Your `HostVC` class needs to conform to the `AUAuthenticatable` protocol. In `viewDidLoad` set the delegate of your `AUAuthNavigator` instance, let's call it `authNavigator`.  
- Next set the Storyboard ID's (`loginVCId` and if you want `loadingVCId`).  
- To actually use the authenticator, call `authNavigator.startAuthentication()` in `viewWillAppear` and `authNavigator.stopAuthentication()` in view.  
- Now implement the 2 methods of the protocol:
-    * `shouldLogin`: Here you implement your authentication process. If your user needs to login, return true, if he is already logged in return false
-    * `willReturnFromLoginActions`: This method is called when returning from the `LoginVC`. You can run additional actions if you need to. If not leave the method body empty.
-
-4. **Setting up `LoginVC`:** After finishing your login process call `authNavigator.finishLogin(success: Bool)`. A good practice is to handle wrong inputs on the login site itself rather than calling `...finishLogin(false)`, because AuthNavigator will then only show the login screen again.
-
-6. **Setting up `LoadingVC`:** After finishing your loading process call `authNavigator.finishLoading`.
+### Project setup
+Create 2 VC's for *Basic* and 3 for *Advance* (Specify unique Storybard ID's for each)
 
 
-**Logout**: Call `logout(presentLoading: Bool)` in your to `HostVC`. If `presentLoading` is set to `true`, the loading screen will be presented, if it's set to `false`, the login screen will be presented directly.
+
+### HostVC setup
+First create an `AUAuthNavigator` instance (you can either use the `AUAuthNavigator.sharedInstance` or you create your own static instance). Then set the Storyboard ID's of `LoginVC` and `LoadingVC` to the corresponding properties. To actually use the authenticator, call `startAuthentication` in `viewWillAppear` and call `stopAuthentication` in `viewDidDisappear`.
+
+    class HostVC: UIViewController {
+    
+        static let authNavigator = AUAuthNavigator()
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
+        
+            MainViewController.authNavigator.delegate = self
+            
+            MainViewController.authNavigator.loginVCId = "LoginVC"
+            MainViewController.authNavigator.loadingVCId = "LoadingVC"
+        }
+
+        override func viewWillAppear(_ animated: Bool) {
+            MainViewController.authNavigator.startAuthentication()
+        }
+    
+        override func viewWillDisappear(_ animated: Bool) {
+            MainViewController.authNavigator.stopAuthentication()
+        }
+    }
+
+Set the delegate of the authenticator to `self`. Therefore `HostVC` needs to coform to the `AUAuthenticatable` protocol:
+
+    extension HostVC: AUAuthenticatable
+    
+        func shouldLogin() -> Bool {
+            // Implement your authentication process here. If your user needs to login, return true, if he is already logged in return false
+        }
+    
+        func willReturnFromLoginActions(success: Bool) {
+            // Additional actions after login (not necessary)
+        }
+    }
+
+
+
+### LoadingVC setup
+After your custom loading is finished, call `finishLoading()` on the static `authNavigator` instance of `HostVC`.
+
+
+
+### LoginVC setup
+After login is finished, call `finishLogin(success: Bool)` on the static `authNavigator` instance of `HostVC`. Remember that you may want to handle login failure on the `LoginVC` itself instead of callin `finishLogin(succes: false)`, because this will only show the login screen again.
+
+
+
+### Logout
+Call `logout(presentLoading: Bool)` in your to `HostVC`. If `presentLoading` is set to `true`, the loading screen will be presented, if it's set to `false`, the login screen will be presented directly.
 
 
 ### Additional settings
