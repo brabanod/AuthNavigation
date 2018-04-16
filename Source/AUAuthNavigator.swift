@@ -171,15 +171,23 @@ public class AUAuthNavigator: UIView {
     }
     
     
-    public func logout() {
+    public func logout(presentLoading: Bool) {
+        
+        // Reset everything
         didLoginSuccessfully = false
         didLoad = false
         stopAuthentication()
+        overlayView = nil
         
-        // Reset loadingVCId -> Loading screen won't be presented after logout
+        // If should present loading screen -> Reset loadingVCId -> Loading screen won't be presented after logout
         let cacheLoadingVCId = loadingVCId
-        loadingVCId = nil
+        if !presentLoading {
+            loadingVCId = nil
+        }
+        
+        // Present login screen (and maybe loading)
         startAuthentication()
+        
         loadingVCId = cacheLoadingVCId
     }
     
