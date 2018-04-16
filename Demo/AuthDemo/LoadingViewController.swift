@@ -12,7 +12,9 @@ class LoadingViewController: UIViewController {
     
     @IBOutlet weak var progressView: UIProgressView!
     
-    let authNavigator = AUAuthNavigator.sharedInstance
+    
+    let authNavigator = MainViewController.authNavigator
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,7 @@ class LoadingViewController: UIViewController {
         progressView.progress = 0.0
     }
     
-
+    
     override func viewDidAppear(_ animated: Bool) {
         
         let duration = 2.0

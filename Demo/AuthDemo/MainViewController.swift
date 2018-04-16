@@ -13,39 +13,44 @@ class MainViewController: UIViewController, AUAuthenticatable {
     // Change the value to true to see what happens, when user does not need to login
     var isLoggedIn: Bool = false
     
-    let authNavigator = AUAuthNavigator.sharedInstance
-    
-    
-    
-    @IBOutlet weak var mainContentView: UIView!
+    static let authNavigator = AUAuthNavigator()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        authNavigator.delegate = self
+        MainViewController.authNavigator.delegate = self
         
-        // If you don't specify a hostView, the whole view of MainVC will be covered by authorization (try it)
-        authNavigator.hostView = mainContentView
+        MainViewController.authNavigator.loginVCId = "LoginVC"
+        MainViewController.authNavigator.loadingVCId = "LoadingVC"
         
-        authNavigator.loginVCId = "LoginVC"
-        authNavigator.loadingVCId = "LoadingVC"
+        // If you don't specify a hostView, the whole view of MainVC will be covered by authorization
+        // MainViewController.authNavigator.hostView = <UIView>
         
         // Additional parameters you can adjust
-        //authNavigator.overlayColor = .blue
-        //authNavigator.animationDuration = 0.1
+        //MainViewController.authNavigator.overlayColor = .blue
+        //MainViewController.authNavigator.animationDuration = 0.1
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        authNavigator.startAuthentication()
+        MainViewController.authNavigator.startAuthentication()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        authNavigator.stopAuthentication()
+        MainViewController.authNavigator.stopAuthentication()
     }
     
+    
+    
+    
+    @IBAction
+    func unwindToHome(segue: UIStoryboardSegue) {}
+    
+    @IBAction func logoutPressed(_ sender: Any) {
+        isLoggedIn = false
+        MainViewController.authNavigator.logout(presentLoading: false)
+    }
     
     
     
@@ -53,7 +58,7 @@ class MainViewController: UIViewController, AUAuthenticatable {
     // MARK: - Authentication
     
     func shouldLogin() -> Bool {
-        print("Authentication started in background")
+        print("Main Authentication started in background")
         if isLoggedIn {
             return false
         } else {

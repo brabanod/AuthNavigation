@@ -22,14 +22,14 @@ public protocol AUAuthenticatable where Self : UIViewController {
      
      - Important:
      Sometimes this method gets called from a background thread. Make sure that if you do UI changes in this method (which actually should not be the case) do them in the main thread.
-    */
+     */
     func shouldLogin() -> Bool
     
     
     
     /**
      Here you can execute additional actions when returning from the login, but of course you don't need to.
-    */
+     */
     func willReturnFromLoginActions(success: Bool)
 }
 
@@ -52,7 +52,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      Specify a custom duration for all animations done by AUAuthNavigator (overlay, login and loading fade in/out)
-    */
+     */
     public var animationDuration: TimeInterval = 0.3
     
     
@@ -66,21 +66,21 @@ public class AUAuthNavigator: UIView {
     
     /**
      The delegate is the host of the authentication, it's the view controller, that needs authentication
-    */
+     */
     public var delegate: (UIViewController & AUAuthenticatable)?
     
     
     
     /**
      You can specify a host view for your authentication. The login and loading screen (if given) will then only be presented in that host view. By default the host is the entire screen.
-    */
+     */
     public var hostView: UIView?
     
     
     
     /**
      Set this to be the Storyboard ID of your LoginVC
-    */
+     */
     public var loginVCId: String?
     
     
@@ -103,6 +103,9 @@ public class AUAuthNavigator: UIView {
     
     
     
+    /**
+     Call this method in viewWillAppear of your HostVC. It will start the authentication process.
+     */
     public func startAuthentication() {
         if delegate == nil {
             print("ERROR: You've forgotten to set the delegate")
@@ -165,9 +168,40 @@ public class AUAuthNavigator: UIView {
     
     
     
+    /**
+     Call this method in viewWillDisappear of your HostVC.
+     */
     public func stopAuthentication() {
         isAuthenticationRunning = false
         dismissOverlay(animated: false)
+    }
+    
+    
+    
+    /**
+     Call this method if you want to logout. The login screen will be presented.
+     
+     - parameters:
+     - presentLoading: Set this to true if you want to present the loading screen again after logout.
+     */
+    public func logout(presentLoading: Bool) {
+        
+        // Reset everything
+        didLoginSuccessfully = false
+        didLoad = false
+        stopAuthentication()
+        overlayView = nil
+        
+        // If should present loading screen -> Reset loadingVCId -> Loading screen won't be presented after logout
+        let cacheLoadingVCId = loadingVCId
+        if !presentLoading {
+            loadingVCId = nil
+        }
+        
+        // Present login screen (and maybe loading)
+        startAuthentication()
+        
+        loadingVCId = cacheLoadingVCId
     }
     
     
@@ -195,7 +229,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      If the LoadingVC is currently presented, it will be saved in this variable
-    */
+     */
     private var loginVC: UIViewController?
     
     
@@ -252,7 +286,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      Call this method from your LoginVC if the login process is finished
-    */
+     */
     public func finishLogin(success: Bool) {
         if loginVCId == nil {
             print("ERROR: Cannot return from login if no loginDelegate is given.")
@@ -288,7 +322,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      If the LoadingVC is currently presented, it will be saved in this variable
-    */
+     */
     private var loadingVC: UIViewController?
     
     
@@ -340,7 +374,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      Call this method from your LoginVC if the login process is finished
-    */
+     */
     public func finishLoading() {
         if loadingVCId == nil {
             print("ERROR: Cannot return from loading if no loadingDelegate is given.")
@@ -370,7 +404,7 @@ public class AUAuthNavigator: UIView {
     
     /**
      The overlay is used to hide the content of your MainVC during authorization. If you need this overlay to have a special color, then specify it here. Default behaviour is to use the background color of the hostView.
-    */
+     */
     public var overlayColor: UIColor?
     
     

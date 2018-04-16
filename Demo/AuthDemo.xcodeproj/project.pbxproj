@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5033A88E2084E43200D281FB /* SecretsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033A88D2084E43200D281FB /* SecretsViewController.swift */; };
+		5033A8902084E60700D281FB /* SecretsLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033A88F2084E60700D281FB /* SecretsLoginViewController.swift */; };
+		5033A8922084E61800D281FB /* SecretsLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5033A8912084E61800D281FB /* SecretsLoadingViewController.swift */; };
 		50B9DE29200A4DA600583114 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9DE28200A4DA600583114 /* AppDelegate.swift */; };
 		50B9DE2B200A4DA600583114 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B9DE2A200A4DA600583114 /* MainViewController.swift */; };
 		50B9DE2E200A4DA600583114 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B9DE2C200A4DA600583114 /* Main.storyboard */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5033A88D2084E43200D281FB /* SecretsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsViewController.swift; sourceTree = "<group>"; };
+		5033A88F2084E60700D281FB /* SecretsLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsLoginViewController.swift; sourceTree = "<group>"; };
+		5033A8912084E61800D281FB /* SecretsLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsLoadingViewController.swift; sourceTree = "<group>"; };
 		50B9DE25200A4DA600583114 /* AuthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B9DE28200A4DA600583114 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50B9DE2A200A4DA600583114 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,9 @@
 				50B9DE2A200A4DA600583114 /* MainViewController.swift */,
 				50BB15FD2077DC6200551CEA /* LoadingViewController.swift */,
 				50BB15FE2077DC6200551CEA /* LoginViewController.swift */,
+				5033A88D2084E43200D281FB /* SecretsViewController.swift */,
+				5033A8912084E61800D281FB /* SecretsLoadingViewController.swift */,
+				5033A88F2084E60700D281FB /* SecretsLoginViewController.swift */,
 				50B9DE2C200A4DA600583114 /* Main.storyboard */,
 				50FB553F206E65B800E3CC0F /* AuthNavigation */,
 				50B9DE2F200A4DA600583114 /* Assets.xcassets */,
@@ -157,7 +166,10 @@
 				50BB15FF2077DC6300551CEA /* LoadingViewController.swift in Sources */,
 				50FACB812076104800081C50 /* AUAuthNavigator.swift in Sources */,
 				50BB16002077DC6300551CEA /* LoginViewController.swift in Sources */,
+				5033A8902084E60700D281FB /* SecretsLoginViewController.swift in Sources */,
+				5033A88E2084E43200D281FB /* SecretsViewController.swift in Sources */,
 				50B9DE29200A4DA600583114 /* AppDelegate.swift in Sources */,
+				5033A8922084E61800D281FB /* SecretsLoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
