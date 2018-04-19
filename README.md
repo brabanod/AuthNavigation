@@ -7,7 +7,7 @@
 
 # AuthNavigation
 
-AuthNavigation is an iOS library, that organizes the login process in your app, making it easy to implement auto-login. AuthNavigation automatically checks if your user needs to login or not and presents the correct screens based on the result.
+AuthNavigation is an iOS library, that organizes the login process in your app, making it easy to implement auto-login. AuthNavigation cares about presenting the correct view controllers, by automatically checking if your user needs to login or not.
 
 You can setup AuthNavigation on one or more `UIViewController`'s, it can authenticate the whole screen or just parts of it.
 
