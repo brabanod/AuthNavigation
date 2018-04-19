@@ -19,7 +19,10 @@ AuthNavigation is not a replacement for `UINavigationController`, in fact you ca
 <p align="center">
   <img src="https://github.com/columbbus/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="600"/>
 </p>
-
+<p align="center">
+  <i>Showcase: Navigation is automated by AuthNavigator, screens are custom.</i>
+</p>
+<br></br>
 
 
 
