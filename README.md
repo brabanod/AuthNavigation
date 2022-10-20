@@ -6,7 +6,7 @@ You can setup AuthNavigation on one or more `UIViewController`'s, it can authent
 
 <br></br>
 <p align="center">
-  <img src="https://github.com/brabanod/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="600"/>
+  <img src="https://github.com/brabanod/AuthNavigation/blob/master/Assets/demo.gif?raw=true" alt="AuthNavigation Demo" height="600" width="337"/>
 </p>
 <p align="center">
   <i>Showcase: Navigation is automated by AuthNavigator, screens are custom.</i>
